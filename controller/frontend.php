@@ -1,4 +1,7 @@
 <?php
+use \Tom\Blog\Model\CommentManager;
+use \Tom\Blog\Model\PostManager;
+use \Tom\Blog\Model\Manager;
 
 //chargement des classes
 require_once('model/PostManager.php');
