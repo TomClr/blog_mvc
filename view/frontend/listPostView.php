@@ -18,7 +18,7 @@ while ($data = $posts->fetch())
         <p>
             <?= nl2br(htmlspecialchars($data['content'])) ?>
             <br />
-            <em><a href="post.php?id=<?= $data['id'] ?>">Commentaires</a></em>
+            <em><a href="index.php?action=post&id=<?= $data['id'] ?>">Commentaires</a></em>
         </p>
     </div>
 <?php
@@ -27,4 +27,4 @@ $posts->closeCursor();
 ?>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('./view/frontend/template.php'); ?>
