@@ -27,6 +27,28 @@ try {
                 throw new Exception('Erreur : aucun identifiant de billet envoyé');
             }
         }
+        elseif($_GET['action'] == "display") {
+            if (isset($_GET['id']) AND $_GET['id'] > 0) {
+                displayComment($_GET['id']);
+            }
+            else {
+                throw new Exception('Le commentaire est introuvable');
+            }
+        }
+        elseif($_GET['action'] == "update") {
+            
+            if (isset($_GET['id']) AND $_GET['id'] > 0) {
+                if (!empty($_POST['author']) AND !empty($_POST['comment'])) {
+                    upComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                }
+                else {
+                    throw new Exception('Erreur, tous les champs ne sont pas remplis');
+                }
+            }
+            else {
+                throw new Exception('Erreur : votre commentaire est introuvable');
+            }
+        }
     }
     else {
         listPosts();

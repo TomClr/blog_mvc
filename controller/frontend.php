@@ -1,11 +1,17 @@
 <?php
+use \Tom\Blog\Model\Manager;
 use \Tom\Blog\Model\CommentManager;
 use \Tom\Blog\Model\PostManager;
-use \Tom\Blog\Model\Manager;
+use \Tom\Blog\Model\DisplayCommentManager;
+use \Tom\Blog\Model\UpdateCommentManager;
+
 
 //chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/UpdateCommentManager.php');
+require_once('model/DisplayCommentManager.php');
+require_once('model/UpdateCommentManager.php');
 
 function listPosts()
 {
@@ -34,7 +40,29 @@ function addComment($postId, $author, $comment)
 
     if($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
-    } else {
+    } 
+    else {
         header('Location: index.php?action=post&id=' . $postId);
     }
+}
+
+function displayComment($commentId)
+{
+    $displayComment = new DisplayCommentManager();
+    $comment = $displayComment->getComment($commentId);
+
+    require('./view/frontend/displayCommentView.php');
+}
+
+function upComment($commentId, $author, $comment) {
+    $upComment = new UpdateCommentManager();
+    $newComment = $upComment->updateComment($commentId, $author, $comment);
+    if ($newComment === false) {
+        throw new Exception('Impossible de modifier le commentaire !');
+    }
+    else {
+        header('Location: index.php?action=post&id=' . $_GET['postId']);
+    }
+
+    require('.view/frontend/displayCommentView.php');
 }
